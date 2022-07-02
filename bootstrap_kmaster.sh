@@ -11,3 +11,12 @@ kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectca
 
 echo "[TASK 4] Generate and save cluster join command to /joincluster.sh"
 kubeadm token create --print-join-command > /joincluster.sh 2>/dev/null
+
+echo "[TASK 5] deploy metric server"
+kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f metrics-server-components.yml >/dev/null 2>&1
+
+echo "[TASK 5] deploy kubernetes dashboard"
+kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f dashboard.yml >/dev/null 2>&1
+
+echo "[TASK 5] expose kubernetes dashboard to nodeport 32000"
+kubectl --kubeconfig=/etc/kubernetes/admin.conf -n kubernetes-dashboard patch svc kubernetes-dashboard --patch "$(cat dashboardnodeportpatch.yaml)" >/dev/null 2>&1

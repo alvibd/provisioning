@@ -15,8 +15,8 @@ kubeadm token create --print-join-command > /joincluster.sh 2>/dev/null
 echo "[TASK 5] deploy metric server"
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f metrics-server-components.yml >/dev/null 2>&1
 
-echo "[TASK 5] deploy kubernetes dashboard"
+echo "[TASK 6] deploy kubernetes dashboard"
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f dashboard.yml >/dev/null 2>&1
 
-echo "[TASK 5] expose kubernetes dashboard to nodeport 32000"
+echo "[TASK 7] expose kubernetes dashboard to nodeport 32000"
 kubectl --kubeconfig=/etc/kubernetes/admin.conf --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}' >/dev/null 2>&1

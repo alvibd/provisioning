@@ -19,4 +19,4 @@ echo "[TASK 5] deploy kubernetes dashboard"
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f dashboard.yml >/dev/null 2>&1
 
 echo "[TASK 5] expose kubernetes dashboard to nodeport 32000"
-kubectl --kubeconfig=/etc/kubernetes/admin.conf -n kubernetes-dashboard patch svc kubernetes-dashboard --patch "$(cat dashboardnodeportpatch.yaml)" >/dev/null 2>&1
+kubectl --kubeconfig=/etc/kubernetes/admin.conf --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}' >/dev/null 2>&1

@@ -3,3 +3,7 @@ TASk 1 and 2 can be found in following git repositories along with their `README
 - `https://github.com/alvibd/cluster`
 # Guide
 - change directory to `provisioning` after pull and run `vagrant up`
+
+![TASK 3](./kubeadm-ha-topology-external-etcd.svg)
+
+I would like to design a Cluster with multiple controle plane for preventing single point failure and also add separate cluster etcd server for kube-apiserver.

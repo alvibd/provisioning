@@ -18,5 +18,11 @@ kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f metrics-server-compone
 echo "[TASK 6] deploy kubernetes dashboard"
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f dashboard.yml >/dev/null 2>&1
 
-echo "[TASK 7] expose kubernetes dashboard to nodeport 32000"
+echo "[TASK 7] expose kubernetes dashboard to nodeport"
 kubectl --kubeconfig=/etc/kubernetes/admin.conf --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}' >/dev/null 2>&1
+
+echo "[TASK 8] expose kubernetes dashboard to nodeport 3200"
+kubectl --kubeconfig=/etc/kubernetes/admin.conf -n kubernetes-dashboard patch svc kubernetes-dashboard --patch "$(cat nodeport_dashboard_patch.yaml)" >/dev/null 2>&1
+
+echo "[TASK 8] expose kubernetes dashboard to nodeport 3200"
+kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f dashboard_admin.yml >/dev/null 2>&1
